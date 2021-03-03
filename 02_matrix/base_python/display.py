@@ -72,8 +72,17 @@ def save_extension( screen, fname ):
     # remove(ppm_name)
 
 def display( screen ):
-    ppm_name = 'pic.ppm'
-    save_ppm_ascii( screen, ppm_name )
-    p = Popen( ['display', ppm_name], stdin=PIPE, stdout = PIPE )
-    p.communicate()
-    remove(ppm_name)
+    img = Image.new('RGB', (len(screen[0]), len(screen)))
+
+    pixels = []
+    for row in screen:
+        for pixel in row:
+            pixels.append( tuple(pixel) )
+
+    img.putdata(pixels)
+    img.show()
+    # ppm_name = 'pic.ppm'
+    # save_ppm_ascii( screen, ppm_name )
+    # p = Popen( ['display', ppm_name], stdin=PIPE, stdout = PIPE )
+    # p.communicate()
+    # remove(ppm_name)

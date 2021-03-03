@@ -117,8 +117,15 @@ that format.
 ====================*/
 void save_extension( screen s, char *file) {
 
-  stbi_write_png(file, XRES, YRES, 3, s, 3 * XRES);
-  
+  screen tmp;
+  int x, y;
+
+  for ( y=0; y < YRES; y++ ) {
+    for ( x=0; x < XRES; x++)
+      tmp[y][x] = s[x][y];
+  }
+  stbi_write_png(file, XRES, YRES, 3, tmp, 3 * XRES);
+
   /* int x, y; */
   /* FILE *f; */
   /* char line[256]; */
